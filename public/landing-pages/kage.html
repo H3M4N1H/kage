@@ -2276,6 +2276,26 @@ const PERF = { scale: 1, acc: 0, n: 0, locked: qs('adapt', '1') === '0' };
 
 function initGL() {
   if (qs('nogl', '0') !== '0' || !window.THREE) throw new Error('webgl disabled');
+  
+  // Check if WebGL context already exists on canvas
+  const existingContext = canvas.getContext('webgl') || canvas.getContext('webgl2') || canvas.getContext('experimental-webgl');
+  if (existingContext) {
+    console.warn('WebGL context already exists on canvas. Reusing existing context.');
+    // Try to get the existing renderer or return early
+    if (renderer && renderer.getContext() === existingContext) {
+      return; // Already initialized with this context
+    }
+  }
+  
+  // Dispose existing renderer if any
+  if (renderer) {
+    try {
+      renderer.dispose();
+    } catch (e) {
+      console.warn('Failed to dispose existing renderer:', e);
+    }
+  }
+  
   renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: !WANT_POST, alpha: false, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, DPR_CAP));
   /* updateStyle stays on: the stylesheet sizes the canvas at 100% of the
