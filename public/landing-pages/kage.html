@@ -770,6 +770,10 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 [data-fg="eternity"] .fg-grass  { right:-7%; bottom:-60px; width:clamp(300px,37vw,670px); }
 [data-fg="eternity"] .fg-sakura { left:-15%; bottom:-70px; width:clamp(280px,33vw,580px); }
 
+/* — hero: subtle foreground to frame the title */
+[data-fg="hero"] .fg-grass  { left:5%;   bottom:-80px;  width:clamp(400px,45vw,800px); }
+[data-fg="hero"] .fg-bush   { right:-8%; bottom:-60px;  width:clamp(300px,35vw,600px); }
+
 /* — colophon: one restrained planting along the lower edge, nothing above it */
 [data-fg="foot"] .fg-bush   { left:-6%;  bottom:-110px; width:clamp(230px,28vw,480px); }
 [data-fg="foot"] .fg-grass  { right:-5%; bottom:-98px;  width:clamp(255px,30vw,530px); }
@@ -967,6 +971,16 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   </a>
 
   <div class="word-fb" aria-hidden="true">KAGE</div>
+
+  <!-- foreground for hero section -->
+  <div class="fg" data-fg="hero" aria-hidden="true">
+    <span class="fg-el fg-grass" data-fg-in="up">
+      <img src="secret-pathways-assets/foreground/png/tall-grass.webp" alt="" width="1717" height="916" loading="lazy" decoding="async">
+    </span>
+    <span class="fg-el fg-bush" data-fg-in="left">
+      <img src="secret-pathways-assets/foreground/png/garden-bush.webp" alt="" width="1717" height="876" loading="lazy" decoding="async">
+    </span>
+  </div>
 
   <div class="hero-side" data-rv="up">
     <span class="v jp">影の道</span>
@@ -2264,8 +2278,10 @@ const canvas = document.getElementById('gl');
 const vpW = () => document.documentElement.clientWidth  || innerWidth;
 const vpH = () => document.documentElement.clientHeight || innerHeight;
 let renderer, scene, camera, maxAniso = 1;
-const HI = qs('q', COARSE ? 'low' : 'high');
-const LOW = HI === 'low';
+let contextLost = false;
+let animationRunning = true;
+const HI = 'high'; // Force high quality
+const LOW = false; // Disable low mode
 const WANT_POST    = qs('post', '1') !== '0';
 const WANT_SHADOW  = qs('shadow', LOW ? '0' : '1') !== '0';
 const DPR_CAP      = qn('dpr', LOW ? 1.4 : 1.8);
@@ -2277,26 +2293,49 @@ const PERF = { scale: 1, acc: 0, n: 0, locked: qs('adapt', '1') === '0' };
 function initGL() {
   if (qs('nogl', '0') !== '0' || !window.THREE) throw new Error('webgl disabled');
   
-  // Check if WebGL context already exists on canvas
-  const existingContext = canvas.getContext('webgl') || canvas.getContext('webgl2') || canvas.getContext('experimental-webgl');
-  if (existingContext) {
-    console.warn('WebGL context already exists on canvas. Reusing existing context.');
-    // Try to get the existing renderer or return early
-    if (renderer && renderer.getContext() === existingContext) {
-      return; // Already initialized with this context
-    }
-  }
-  
-  // Dispose existing renderer if any
-  if (renderer) {
-    try {
-      renderer.dispose();
-    } catch (e) {
-      console.warn('Failed to dispose existing renderer:', e);
-    }
-  }
-  
   renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: !WANT_POST, alpha: false, powerPreference: 'high-performance' });
+  
+  // Add WebGL context loss handlers
+  canvas.addEventListener('webglcontextlost', function(event) {
+    console.warn('WebGL context lost. Stopping rendering.');
+    event.preventDefault();
+    contextLost = true;
+    animationRunning = false;
+  }, false);
+  
+  canvas.addEventListener('webglcontextrestored', function(event) {
+    console.warn('WebGL context restored. Reinitializing rendering.');
+    contextLost = false;
+    // Force reinitialization
+    if (renderer) {
+      try { 
+        // Dispose all geometries and materials to prevent shader reuse issues
+        if (scene) {
+          scene.traverse(function(object) {
+            if (object.geometry) object.geometry.dispose();
+            if (object.material) {
+              if (Array.isArray(object.material)) {
+                object.material.forEach(m => m.dispose());
+              } else {
+                object.material.dispose();
+              }
+            }
+          });
+        }
+        renderer.dispose(); 
+      } catch(e) {
+        console.warn('Dispose error:', e);
+      }
+      renderer = null;
+    }
+    // Clear shader cache to prevent stale programs
+    if (window.THREE && THREE.WebGLRenderer) {
+      THREE.WebGLRenderer.prototype.programs = [];
+    }
+    initGL();
+    animationRunning = true;
+    queue(); // Restart animation loop
+  }, false);
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, DPR_CAP));
   /* updateStyle stays on: the stylesheet sizes the canvas at 100% of the
      initial containing block, which is the very box that runs wide on a
@@ -2328,6 +2367,10 @@ function tx(canvasEl, o) {
   t.wrapS = t.wrapT = o.wrap || THREE.ClampToEdgeWrapping;
   if (o.repeat) t.repeat.set(o.repeat[0], o.repeat[1]);
   t.anisotropy = Math.min(o.aniso || 8, maxAniso);
+  // Enable mipmaps for better texture filtering
+  t.generateMipmaps = true;
+  t.minFilter = THREE.LinearMipmapLinearFilter;
+  t.magFilter = THREE.LinearFilter;
   if (o.srgb !== false) t.encoding = THREE.sRGBEncoding;
   t.needsUpdate = true;
   return t;
@@ -4223,8 +4266,8 @@ function splitHeadingWords() {
    move costs nothing in layout: the stage is position:fixed either way, and
    its placement rules key off [data-fg], not off the section it came from. */
 function wireForegroundStages() {
-  const pairs = $$('.sec .fg, .foot .fg').map(stage => ({
-    section:stage.closest('.sec, .foot'), stage
+  const pairs = $$('.sec .fg, .foot .fg, .hero .fg').map(stage => ({
+    section:stage.closest('.sec, .foot, .hero'), stage
   })).filter(pair => pair.section);
   if (!pairs.length) return;
 
@@ -4687,7 +4730,7 @@ function render() {
 }
 
 function frame(now) {
-  if (!running) return;
+  if (!running || !animationRunning || contextLost) return;
   const raw = (now - tPrev) / 1000 || 0;
   const dt = Math.min(raw, .05);              /* animation never jumps … */
   tPrev = now; clock += dt;
@@ -4805,8 +4848,16 @@ function start() {
   addEventListener('resize', () => { resize(); }, { passive: true });
   addEventListener('orientationchange', () => setTimeout(resize, 250));
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) { running = false; }
-    else if (!running) { running = true; tPrev = performance.now(); queue(); }
+    if (document.hidden) { 
+      running = false; 
+      animationRunning = false;
+    }
+    else if (!running) { 
+      running = true; 
+      animationRunning = true;
+      tPrev = performance.now(); 
+      queue();
+    }
   });
   resize();
 
