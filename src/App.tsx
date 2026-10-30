@@ -7,9 +7,7 @@ export function Scene() {
       padding: '0',
       width: '100%',
       height: '100%',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
+      overflow: 'hidden'
     }}>
       <KageLandingPage
         headingFont="onest"
@@ -21,8 +19,8 @@ export function Scene() {
         bodySize={17}
         headingLetterSpacing={-0.012}
         style={{
-          width: '95%',
-          height: '95%'
+          width: '100%',
+          height: '100%'
         }}
       />
     </div>
