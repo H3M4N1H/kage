@@ -1,0 +1,13 @@
+**/bin/
+**/dist/
+**/.state/
+**/node_modules/
+.env
+.env.*
+!.env.example
+*.log
+*.pem
+*.key
+/ssh-portfolio/id_ed25519
+__pycache__/
+artifacts/

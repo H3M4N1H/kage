@@ -1,0 +1,11 @@
+{
+  "name": "hemanth-personal-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "lint": "node --check scripts/build.mjs && node --check src/site.js && node --check src/globe.js && node scripts/check.mjs",
+    "start": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist"
+  }
+}

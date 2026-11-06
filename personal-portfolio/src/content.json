@@ -1,0 +1,953 @@
+{
+  "name": "Hemanth",
+  "fullName": "P Hemanth Gupta",
+  "intro": "I build offensive security tools, OSINT workflows, network analysis tools, and secure local-first applications. My work spans vulnerability scanning, recon automation, cryptography, password security, and CTF challenges. I also contribute to cybersecurity communities through design, branding, event infrastructure, and club-led initiatives.",
+  "profiles": [
+    {
+      "name": "GitHub",
+      "handle": "Dreadonyx",
+      "url": "https://github.com/Dreadonyx"
+    },
+    {
+      "name": "LinkedIn",
+      "handle": "P. Hemanth Gupta",
+      "url": "https://www.linkedin.com/in/p-hemanth-gupta-657b05353"
+    },
+    {
+      "name": "TryHackMe",
+      "handle": "h3m4n1h",
+      "url": "https://tryhackme.com/p/h3m4n1h"
+    },
+    {
+      "name": "CTFtime",
+      "handle": "DreadOnyx",
+      "url": "https://ctftime.org/user/235934"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Aegis",
+      "category": "Systems & tooling",
+      "summary": "From telemetry to evidence.",
+      "description": "A local SOC and deception lab that ingests Cowrie telemetry, tracks incidents, explains detections, and exports evidence-linked analyst reports.",
+      "tags": [
+        "Python",
+        "FastAPI",
+        "SQLite",
+        "Cowrie",
+        "Docker"
+      ],
+      "visual": "modules",
+      "status": "Project"
+    },
+    {
+      "name": "ThrustGuard",
+      "category": "Systems & tooling",
+      "summary": "Behavioral trust for IoT.",
+      "description": "IoT behavioral trust scoring with policy rules, statistical drift checks, anomaly detection, hash-chained audit logs, and LLM-assisted incident reports.",
+      "tags": [
+        "Python",
+        "FastAPI",
+        "Isolation Forest",
+        "Ollama",
+        "SQLite"
+      ],
+      "visual": "signal",
+      "status": "Project"
+    },
+    {
+      "name": "SpecterNet",
+      "category": "Systems & tooling",
+      "summary": "Understand the traffic.",
+      "description": "A network analysis tool with live packet capture, HTTP/FTP/Telnet/SMTP inspection, traffic visualization, plaintext credential detection, and threaded port scanning.",
+      "tags": [
+        "Python",
+        "PyQt6",
+        "Scapy",
+        "Threading"
+      ],
+      "visual": "connect",
+      "status": "Project"
+    },
+    {
+      "name": "SentinelX",
+      "category": "Security & learning",
+      "summary": "From source code to security findings.",
+      "description": "AST-based Python scanning and secret detection, with AI-assisted attack paths, proof-of-concept payloads, and impact summaries for security research.",
+      "tags": [
+        "Python",
+        "AST analysis",
+        "AI analysis"
+      ],
+      "visual": "modules",
+      "status": "Project"
+    },
+    {
+      "name": "PhantomEye",
+      "category": "Security & learning",
+      "summary": "Recon across identities and infrastructure.",
+      "description": "Concurrent OSINT checks across 100+ platforms, with username, email, IP, domain, and phone modules, DNS and security-header checks, and HTML reports.",
+      "tags": [
+        "OSINT",
+        "Concurrent checks",
+        "HTML reports"
+      ],
+      "visual": "connect",
+      "status": "Project"
+    },
+    {
+      "name": "SafeKey",
+      "category": "Security & learning",
+      "summary": "Your passwords, kept on-device.",
+      "description": "A local-first password manager with AES-256-GCM vault encryption, PBKDF2 key derivation, per-entry IVs, clipboard timeout, inactivity auto-lock, and password strength feedback. Supports browser, desktop, and Android distribution.",
+      "tags": [
+        "Web Crypto API",
+        "Tauri",
+        "Local-first"
+      ],
+      "visual": "key",
+      "status": "Project"
+    },
+    {
+      "name": "CipherX",
+      "category": "Security & learning",
+      "summary": "Decode the next layer.",
+      "description": "Multi-layer cipher and encoding detection with Base64, hex, ROT13, Morse and more. Includes Caesar, XOR and Vigenere workflows, flag scoring, steganography, and hash identification.",
+      "tags": [
+        "Cryptography",
+        "CTFs",
+        "Encoding"
+      ],
+      "visual": "key",
+      "status": "Project"
+    },
+    {
+      "name": "RoadSOS",
+      "category": "Systems & tooling",
+      "summary": "From crash detection to emergency response.",
+      "description": "National Road Safety Hackathon 2026 project using a TFLite sensor model, OpenStreetMap road checks, a two-step cancel flow, emergency calls and SMS, realtime bystander alerts, and first-aid guidance.",
+      "tags": [
+        "TFLite",
+        "Android",
+        "Twilio",
+        "Supabase"
+      ],
+      "visual": "signal",
+      "status": "Project"
+    },
+    {
+      "name": "Cyventura CTF Platform",
+      "category": "Web & community",
+      "summary": "Weekly challenges, one shared platform.",
+      "description": "A weekly CTF platform with authentication, challenges, flag submissions, leaderboards, events, and admin tools. Includes hashed passwords and flags, rate limiting, and upload validation.",
+      "tags": [
+        "FastAPI",
+        "MongoDB",
+        "React",
+        "Vite"
+      ],
+      "visual": "connect",
+      "status": "Project"
+    },
+    {
+      "name": "CTF-AI",
+      "category": "Security & learning",
+      "summary": "A companion for the learning curve.",
+      "description": "An AI-assisted CTF learning tool designed to help beginners reason through challenge concepts and build problem-solving confidence.",
+      "tags": [
+        "Python",
+        "Gemini",
+        "Docker"
+      ],
+      "visual": "reason",
+      "status": "Project"
+    },
+    {
+      "name": "SpecFit",
+      "category": "Systems & tooling",
+      "summary": "System telemetry, made readable.",
+      "description": "A Flask system health dashboard using psutil to track CPU and memory, classify NORMAL, STRAINED, and OVERLOADED states, identify top memory consumers, and explain conditions with Groq.",
+      "tags": [
+        "Flask",
+        "psutil",
+        "Groq"
+      ],
+      "visual": "signal",
+      "status": "Project"
+    },
+    {
+      "name": "GHOST",
+      "category": "Systems & tooling",
+      "summary": "Local tools. Focused workflows.",
+      "description": "A modular local assistant concept built around distinct workflow modes and configurable model support.",
+      "tags": [
+        "Local tooling",
+        "CLI"
+      ],
+      "visual": "modules",
+      "status": "Concept"
+    },
+    {
+      "name": "Yugma",
+      "category": "Web & community",
+      "summary": "Connecting college communities.",
+      "description": "A platform concept for connecting college clubs and making inter-college coordination easier.",
+      "tags": [
+        "Next.js",
+        "Tailwind CSS"
+      ],
+      "visual": "connect",
+      "status": "Concept"
+    },
+    {
+      "name": "AttendQR",
+      "category": "Web & community",
+      "summary": "A simpler attendance workflow.",
+      "description": "A QR-based attendance project built around a lightweight web application and a SQLite fallback.",
+      "tags": [
+        "Flask",
+        "SQLite",
+        "QR codes"
+      ],
+      "visual": "qr",
+      "status": "Project"
+    },
+    {
+      "name": "nmapx",
+      "category": "Systems & tooling",
+      "summary": "Network scans, live in the browser.",
+      "description": "A web interface for Nmap with WebSocket output streaming, readable scan summaries, scan profiles, and Groq-assisted threat analysis.",
+      "tags": [
+        "Nmap",
+        "WebSockets",
+        "Groq"
+      ],
+      "visual": "connect",
+      "status": "Project"
+    },
+    {
+      "name": "CertFlow",
+      "category": "Web & community",
+      "summary": "Certificates at event scale.",
+      "description": "A Flask certificate generator with participant lists, template previews, layout controls, and batch ZIP exports for college and event workflows. Also known as Certs-Automator.",
+      "tags": [
+        "Flask",
+        "Batch generation",
+        "Templates"
+      ],
+      "visual": "qr",
+      "status": "Project"
+    },
+    {
+      "name": "ChessForge",
+      "category": "Web & community",
+      "summary": "A chessboard you can make your own.",
+      "description": "A custom chess platform with move validation, endgame detection, a board editor, themes, and Chess960 with castling support.",
+      "tags": [
+        "Chess960",
+        "Board editor",
+        "Game rules"
+      ],
+      "visual": "qr",
+      "status": "Project"
+    },
+    {
+      "name": "GhostC2",
+      "category": "Security & learning",
+      "summary": "A modular console for authorized labs.",
+      "description": "Python C2 framework for CTFs and authorized penetration testing, with multi-session management, payload generation, listeners, file transfer, system information, and session cleanup.",
+      "tags": [
+        "Python",
+        "CTF labs",
+        "CLI"
+      ],
+      "visual": "modules",
+      "status": "Project"
+    },
+    {
+      "name": "ScanForge",
+      "category": "Security & learning",
+      "summary": "Scan, inspect, report.",
+      "description": "A modular Python web scanner with link and form crawling, checks for SQL injection, XSS, local file inclusion, open redirects and missing security headers, plus JSON and HTML reports.",
+      "tags": [
+        "Python",
+        "Web security",
+        "Reporting"
+      ],
+      "visual": "connect",
+      "status": "Project"
+    },
+    {
+      "name": "AI CLI",
+      "category": "Systems & tooling",
+      "summary": "One terminal, multiple AI providers.",
+      "description": "A dependency-free Python assistant unifying 10 providers and 100+ models, with interactive chat, piped input, provider and model listings, and model switching mid-chat.",
+      "tags": [
+        "Python",
+        "CLI",
+        "AI providers"
+      ],
+      "visual": "modules",
+      "status": "Project"
+    },
+    {
+      "name": "steg-art",
+      "category": "Security & learning",
+      "summary": "An image with a hidden message.",
+      "description": "An image pipeline using Groq prompt enhancement and FLUX.1-schnell through Hugging Face, with LSB message embedding in PNGs and encode/decode APIs.",
+      "tags": [
+        "FLUX",
+        "Groq",
+        "LSB steganography"
+      ],
+      "visual": "key",
+      "status": "Project"
+    },
+    {
+      "name": "snipe",
+      "category": "Systems & tooling",
+      "summary": "Find opportunities worth opening.",
+      "description": "A Telegram bot scanning RSS, DuckDuckGo, and CTFtime every 30 minutes. Uses Groq filtering and SQLite preferences and deduplication for hackathons, internships, CTFs, and other opportunities.",
+      "tags": [
+        "Telegram",
+        "Groq",
+        "SQLite"
+      ],
+      "visual": "modules",
+      "status": "Project"
+    },
+    {
+      "name": "UI Album",
+      "category": "Web & community",
+      "summary": "A library of interface experiments.",
+      "description": "A React and Vite component gallery exploring timelines, dashboards, heroes, forms, docks, grids, and other reusable interface patterns.",
+      "tags": [
+        "React",
+        "Vite",
+        "UI design"
+      ],
+      "visual": "qr",
+      "status": "Project"
+    },
+    {
+      "name": "3D Portfolio Website",
+      "category": "Web & community",
+      "summary": "An interactive showcase in three dimensions.",
+      "description": "A React portfolio with a custom 3D keyboard, particles, elastic cursor, and scroll-driven animation, built with Three.js, React Three Fiber, Spline, GSAP, and Framer Motion.",
+      "tags": [
+        "React",
+        "Three.js",
+        "Spline",
+        "GSAP"
+      ],
+      "visual": "modules",
+      "status": "Project"
+    },
+    {
+      "name": "flappy-bird",
+      "category": "Web & community",
+      "summary": "A browser game in a single file.",
+      "description": "A lightweight HTML and JavaScript Flappy Bird implementation that runs directly in the browser without an install step.",
+      "tags": [
+        "HTML",
+        "JavaScript",
+        "Game"
+      ],
+      "visual": "qr",
+      "status": "Project"
+    },
+    {
+      "name": "snake_game",
+      "category": "Web & community",
+      "summary": "Play your way to the flag.",
+      "description": "A Java Snake game with separate rendering, controller, and model layers. Each apple earns 400 points; reaching 4000 points reveals a CTF flag.",
+      "tags": [
+        "Java",
+        "Game",
+        "CTF"
+      ],
+      "visual": "qr",
+      "status": "Project"
+    },
+    {
+      "name": "Procedural Font Foundry",
+      "category": "Web & community",
+      "summary": "Type, generated from geometry.",
+      "description": "Four original fonts—CypherDiamond, QuantumMono, NovaGrid, and Etherence—generated mathematically in Python, with TTF outputs and a preview and download landing page.",
+      "tags": [
+        "Python",
+        "Typography",
+        "Vector geometry"
+      ],
+      "visual": "qr",
+      "status": "Project"
+    }
+  ],
+  "focus": [
+    {
+      "title": "Security",
+      "description": "Areas of practice.",
+      "items": [
+        "VAPT / recon — Vulnerability analysis",
+        "Web security — OWASP Top 10",
+        "SQL injection — Web testing",
+        "XSS — Web testing",
+        "OSINT — Recon automation",
+        "Crypto / stego — CTF challenges",
+        "CTFs — Challenge development",
+        "Reverse engineering — Area of interest"
+      ]
+    },
+    {
+      "title": "Development",
+      "description": "Areas of practice.",
+      "items": [
+        "Python — Security tools",
+        "C / C++ / Java — Languages",
+        "JavaScript — Web applications",
+        "SQL / MySQL — Data",
+        "HTML / CSS — Web interfaces",
+        "React / Vite — Frontend",
+        "SvelteKit — Frontend",
+        "FastAPI / Flask — Backend"
+      ]
+    },
+    {
+      "title": "Tools",
+      "description": "Areas of practice.",
+      "items": [
+        "Burp Suite — Web testing",
+        "Nmap — Network exploration",
+        "Wireshark — Packet analysis",
+        "SQLMap — Security testing",
+        "Gobuster / Nikto — Enumeration & scanning",
+        "Hashcat — Password auditing",
+        "Metasploit — Security framework",
+        "Scapy — Packet tooling"
+      ]
+    },
+    {
+      "title": "Systems",
+      "description": "Areas of practice.",
+      "items": [
+        "Kali Linux — Security environment",
+        "Arch Linux — Operating system",
+        "Git / Linux — Development environment",
+        "Tauri / PyQt6 — Desktop applications",
+        "Web Crypto API — Local vaults",
+        "TryHackMe — Hands-on practice",
+        "PortSwigger — Web security labs",
+        "Hack The Box — Hands-on practice"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "name": "College Internal Hackathon (SIH Qualifier Round)",
+      "place": "First place",
+      "details": "",
+      "confirmed": true
+    },
+    {
+      "name": "TechNologic Coding Event",
+      "place": "First place",
+      "details": "",
+      "confirmed": true
+    },
+    {
+      "name": "VIT CyberQuest CTF",
+      "place": "Third place",
+      "details": "",
+      "confirmed": true
+    },
+    {
+      "name": "MGR CryptClash CTF",
+      "place": "Third place",
+      "details": "",
+      "confirmed": true
+    },
+    {
+      "name": "College QR Debugging Event",
+      "place": "Third place",
+      "details": "",
+      "confirmed": true
+    },
+    {
+      "name": "What’s The Flag CTF",
+      "place": "Fourth place",
+      "details": "CyberSentinels REC · HiRes Lossless",
+      "confirmed": true
+    },
+    {
+      "name": "SRM KTR HTB CTF",
+      "place": "Fifth place",
+      "details": "",
+      "confirmed": true
+    },
+    {
+      "name": "REC Oxi CTF",
+      "place": "14th / 40",
+      "details": "Rajalakshmi Engineering College · Dedsec X01",
+      "confirmed": true
+    },
+    {
+      "name": "HackOff CTF",
+      "place": "Sixth place",
+      "details": "RMK · Team result",
+      "confirmed": true
+    },
+    {
+      "name": "N3XT_L3V3L CTF",
+      "place": "48th / 216",
+      "details": "Outliers · Team result",
+      "confirmed": true
+    },
+    {
+      "name": "MetaCTF April 2026 Flash CTF",
+      "place": "35th / 1263",
+      "details": "Solo · Tr1ck5ter",
+      "confirmed": true
+    },
+    {
+      "name": "ECLIPSE 24-hour hackathon",
+      "place": "Top 25 selected",
+      "details": "Selected from 600+ teams",
+      "confirmed": true
+    },
+    {
+      "name": "DEF CON Chennai CTF",
+      "place": "16th place",
+      "details": "HiRes Lossless · Team result",
+      "confirmed": true
+    }
+  ],
+  "roles": [
+    {
+      "name": "NodeKraft",
+      "title": "Co-Founder & CEO",
+      "dates": "May 2026–Present",
+      "description": "Co-founded an online agency delivering web development, AI automation, SEO/AEO/GEO optimization, and branding. Lead website delivery, visual identity, and search-focused improvements.",
+      "confirmed": true
+    },
+    {
+      "name": "Cybercom",
+      "title": "Research & Development Engineer",
+      "dates": "Apr 2026–Present",
+      "description": "Research vulnerabilities, develop penetration testing workflows and offensive security tools, and build vulnerable labs and CTF infrastructure.",
+      "confirmed": true
+    },
+    {
+      "name": "Cybercom",
+      "title": "Designer",
+      "dates": "Oct 2025–Present",
+      "description": "Create visuals, branding, digital assets, and presentation material for cybersecurity initiatives and community work.",
+      "confirmed": true
+    },
+    {
+      "name": "Cyventura Club",
+      "title": "Tech Co-Head & Core Member",
+      "dates": "Jan 2026–Present",
+      "description": "Co-organized AKIRA CTF with 300+ registrations and 30+ challenges across four tracks. Contributed to challenge design, testing, deployment, branding, and technical coordination.",
+      "confirmed": true
+    },
+    {
+      "name": "Noctivus ’26 Symposium",
+      "title": "Technical Coordinator",
+      "dates": "Sep 2026",
+      "description": "Co-built the symposium website with the team and led technical event coordination.",
+      "confirmed": true
+    },
+    {
+      "name": "HiRes Lossless",
+      "title": "Core Member",
+      "dates": "Jan 2026–Present",
+      "description": "Contribute to team-based CTF problem-solving, challenge development, knowledge sharing, and team coordination.",
+      "confirmed": true
+    },
+    {
+      "name": "Noctivus 2025",
+      "title": "Designer, Registration & Event Volunteer",
+      "dates": "2025",
+      "description": "Contributed event designs, supported participant registration, and volunteered during event operations.",
+      "confirmed": true
+    }
+  ],
+  "email": "krishnahemanth100@gmail.com",
+  "skills": {
+    "Security": [
+      [
+        "shield",
+        "VAPT / recon",
+        "Vulnerability analysis"
+      ],
+      [
+        "globe",
+        "Web security",
+        "OWASP Top 10"
+      ],
+      [
+        "network",
+        "SQL injection",
+        "Web testing"
+      ],
+      [
+        "code",
+        "XSS",
+        "Web testing"
+      ],
+      [
+        "globe",
+        "OSINT",
+        "Recon automation"
+      ],
+      [
+        "lock",
+        "Crypto / stego",
+        "CTF challenges"
+      ],
+      [
+        "flag",
+        "CTFs",
+        "Challenge development"
+      ],
+      [
+        "terminal",
+        "Reverse engineering",
+        "Area of interest"
+      ]
+    ],
+    "Development": [
+      [
+        "python",
+        "Python",
+        "Security tools"
+      ],
+      [
+        "code",
+        "C / C++ / Java",
+        "Languages"
+      ],
+      [
+        "code",
+        "JavaScript",
+        "Web applications"
+      ],
+      [
+        "network",
+        "SQL / MySQL",
+        "Data"
+      ],
+      [
+        "globe",
+        "HTML / CSS",
+        "Web interfaces"
+      ],
+      [
+        "layers",
+        "React / Vite",
+        "Frontend"
+      ],
+      [
+        "layers",
+        "SvelteKit",
+        "Frontend"
+      ],
+      [
+        "terminal",
+        "FastAPI / Flask",
+        "Backend"
+      ]
+    ],
+    "Tools": [
+      [
+        "shield",
+        "Burp Suite",
+        "Web testing"
+      ],
+      [
+        "network",
+        "Nmap",
+        "Network exploration"
+      ],
+      [
+        "globe",
+        "Wireshark",
+        "Packet analysis"
+      ],
+      [
+        "terminal",
+        "SQLMap",
+        "Security testing"
+      ],
+      [
+        "code",
+        "Gobuster / Nikto",
+        "Enumeration & scanning"
+      ],
+      [
+        "lock",
+        "Hashcat",
+        "Password auditing"
+      ],
+      [
+        "shield",
+        "Metasploit",
+        "Security framework"
+      ],
+      [
+        "network",
+        "Scapy",
+        "Packet tooling"
+      ]
+    ],
+    "Systems": [
+      [
+        "linux",
+        "Kali Linux",
+        "Security environment"
+      ],
+      [
+        "linux",
+        "Arch Linux",
+        "Operating system"
+      ],
+      [
+        "code",
+        "Git / Linux",
+        "Development environment"
+      ],
+      [
+        "cpu",
+        "Tauri / PyQt6",
+        "Desktop applications"
+      ],
+      [
+        "lock",
+        "Web Crypto API",
+        "Local vaults"
+      ],
+      [
+        "flag",
+        "TryHackMe",
+        "Hands-on practice"
+      ],
+      [
+        "globe",
+        "PortSwigger",
+        "Web security labs"
+      ],
+      [
+        "flag",
+        "Hack The Box",
+        "Hands-on practice"
+      ]
+    ]
+  },
+  "events": {
+    "teamName": "HiRes Lossless",
+    "teamUrl": "https://ctftime.org/team/400835/",
+    "checkedOn": "2026-11-04",
+    "teamResults": [
+      {
+        "name": "$N1PH€RS 3.0 CTF",
+        "place": 12
+      },
+      {
+        "name": "E0F CTF",
+        "place": 15
+      },
+      {
+        "name": "FooBar CTF 2026",
+        "place": 36
+      },
+      {
+        "name": "RSTCON 2026 CTF",
+        "place": 93
+      },
+      {
+        "name": "Hack.lu CTF 2026",
+        "place": 108
+      },
+      {
+        "name": "Securinets CTF Quals 2026",
+        "place": 217
+      }
+    ],
+    "community": [
+      {
+        "label": "Organized",
+        "text": "AKIRA CTF, AAZHI CTF, and Cybercom’s first CTF, contributing challenge work, infrastructure, branding, and team coordination."
+      },
+      {
+        "label": "Supported",
+        "text": "Design, participant registration, and event volunteering for Noctivus 2025; website work and technical coordination for Noctivus ’26."
+      },
+      {
+        "label": "Attended",
+        "text": "DEF CON Chennai 2026 (Days 1 and 2), DEF CON Chennai community meetups, BSides Chennai / 0x2 RECON, null meetup, ExploitX meetup, Tamil Nadu Imagine Startup, and TechTrove ’25 at SIMATS."
+      },
+      {
+        "label": "Shared",
+        "text": "Technical seminars, cybersecurity workshops, community talks, and design sessions."
+      }
+    ],
+    "history": [
+      {
+        "year": "2026",
+        "results": [
+          {
+            "name": "THCon 2K26 CTF",
+            "place": 205
+          },
+          {
+            "name": "UMDCTF 2026",
+            "place": 615
+          },
+          {
+            "name": "CTF@CIT 2026",
+            "place": 110
+          },
+          {
+            "name": "Incognito 7.0",
+            "place": 258
+          },
+          {
+            "name": "PsychCTF 2026",
+            "place": 111
+          },
+          {
+            "name": "Axiom CTF 2026",
+            "place": 134
+          },
+          {
+            "name": "ApoorvCTF 2026",
+            "place": 526
+          },
+          {
+            "name": "EHAX CTF 2026",
+            "place": 183
+          },
+          {
+            "name": "Batman’s Kitchen CTF 2026",
+            "place": 137
+          },
+          {
+            "name": "0xFUN CTF 2026",
+            "place": 192
+          },
+          {
+            "name": "Nullcon Goa HackIM 2026 CTF",
+            "place": 374
+          },
+          {
+            "name": "Pragyan CTF 2026",
+            "place": 283
+          },
+          {
+            "name": "Eshaton CTF 2026 Quals",
+            "place": 230
+          },
+          {
+            "name": "New Year CTF 2026",
+            "place": 297
+          },
+          {
+            "name": "DEF CON CTF Qualifier 2026",
+            "place": null
+          }
+        ]
+      },
+      {
+        "year": "2025",
+        "results": [
+          {
+            "name": "NexHunt CTF",
+            "place": 317
+          },
+          {
+            "name": "Null CTF 2025",
+            "place": 235
+          },
+          {
+            "name": "LakeCTF Quals 25-26",
+            "place": 196
+          },
+          {
+            "name": "PatriotCTF 2025",
+            "place": 259
+          },
+          {
+            "name": "AmateursCTF 2025",
+            "place": 663
+          },
+          {
+            "name": "Infobahn CTF 2025",
+            "place": 137
+          },
+          {
+            "name": "m0leCon CTF 2026 Teaser",
+            "place": 361
+          },
+          {
+            "name": "H7CTF 2025",
+            "place": 226
+          },
+          {
+            "name": "QnQSec CTF 2025",
+            "place": 310
+          },
+          {
+            "name": "Securinets CTF Quals 2025",
+            "place": 369
+          },
+          {
+            "name": "SunshineCTF 2025",
+            "place": 744
+          },
+          {
+            "name": "Ctrl+Space CTF Quals",
+            "place": 194
+          },
+          {
+            "name": "WatCTF F25",
+            "place": 425
+          },
+          {
+            "name": "ImaginaryCTF 2025",
+            "place": 437
+          },
+          {
+            "name": "Nullcon Berlin HackIM 2025 CTF",
+            "place": 247
+          },
+          {
+            "name": "HITCON CTF 2025",
+            "place": 320
+          },
+          {
+            "name": "scriptCTF 2025",
+            "place": 223
+          }
+        ]
+      }
+    ]
+  },
+  "aliases": [
+    "Dreadonyx",
+    "BlackPantherX",
+    "Tr1ck5ter",
+    "h3m4n1h"
+  ],
+  "practice": [
+    {
+      "name": "TryHackMe",
+      "summary": "Top 4% · 92-day highest streak · Gold highest league",
+      "detail": "Capability score: 44. 1,714 activity events in the last year. Enrolled in Web Application Pentesting."
+    },
+    {
+      "name": "SkillRack",
+      "summary": "771 programs · 343 tutorials · 417 tracks · 11 tests",
+      "detail": "Programming practice across Python, Java, C, C++, and SQL."
+    }
+  ]
+}
