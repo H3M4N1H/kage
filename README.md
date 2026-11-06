@@ -17,6 +17,12 @@ Sections: introduction, About with a short education line, skills, 27 projects, 
 
 Main files: `personal-portfolio/src/content.json`, `src/style.css`, `src/site.js`, and `scripts/build.mjs`. Metadata, favicon and robots are included. A canonical URL, absolute social preview URL and sitemap are deliberately deferred until the real domain is known. There is no TypeScript configuration, backend, analytics, or fake contact form.
 
+### Vercel deployment
+
+The repository includes a root `vercel.json` configured for the free Vercel plan. Import this repository into Vercel, keep the project root at the repository root, and deploy. Vercel runs `npm --prefix personal-portfolio run build` and serves `personal-portfolio/dist/` as a static site. No server, database, or paid Vercel feature is required.
+
+The `ssh-portfolio` service is separate and cannot run on Vercel because it requires a persistent SSH process; deploy that service to a VPS or another long-running host instead.
+
 ## SSH portfolio
 
 See [local instructions](ssh-portfolio/README.md), [deployment guide](ssh-portfolio/DEPLOYMENT.md), and [security controls](ssh-portfolio/SECURITY.md).

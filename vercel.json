@@ -1,0 +1,5 @@
+{
+  "buildCommand": "npm --prefix personal-portfolio run build",
+  "outputDirectory": "personal-portfolio/dist",
+  "cleanUrls": true
+}
