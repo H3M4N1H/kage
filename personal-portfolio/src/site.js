@@ -88,29 +88,51 @@ const observer = new IntersectionObserver(entries => {
 }, {rootMargin:'-15% 0px -55% 0px'});
 for (const link of navLinks) {const section=document.querySelector(link.hash);if(section) observer.observe(section);}
 
-// A few one-time reveals; content stays visible without animation support.
+// Directional entrances inspired by the team's 700ms scroll reveals.
+// No CSS-hidden content: the page remains readable if scripts fail or are disabled.
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const activeReveals = new Set();
-const revealTargets = document.querySelectorAll('.hero-copy, .about-section, .dashboard, .section-heading, #experience > h2, #contact > div:first-child');
+const revealGroups = [
+  ['.hero-copy', 'left'],
+  ['.terminal', 'right'],
+  ['.about-section', 'up'],
+  ['.skills-panel', 'left'],
+  ['.featured-panel', 'right'],
+  ['.section-heading, #experience > h2, .github-snapshot', 'up'],
+  ['.project', 'up'],
+  ['.event-winnings', 'left'],
+  ['.event-activity', 'right'],
+  ['.practice-snapshot, .experience-grid > article', 'up'],
+  ['#contact > div:first-child', 'left'],
+  ['.profile-list', 'right']
+];
 if ('animate' in Element.prototype && 'IntersectionObserver' in window) {
+  const directions = new Map();
+  for (const [selector, direction] of revealGroups) {
+    document.querySelectorAll(selector).forEach((target, index) => {
+      directions.set(target, {direction, delay:target.matches('.project, .experience-grid > article') ? (index % 2) * 80 : 0});
+    });
+  }
   const reveals = new IntersectionObserver(entries => {
     for (const entry of entries) {
       if (!entry.isIntersecting) continue;
       reveals.unobserve(entry.target);
       if (reducedMotion.matches || entry.target.contains(document.activeElement)) continue;
+      const {direction, delay} = directions.get(entry.target);
+      const distance = innerWidth <= 600 ? 20 : 32;
+      const start = direction === 'left' ? `translateX(-${distance}px)` : direction === 'right' ? `translateX(${distance}px)` : `translateY(${distance}px)`;
       const animation = entry.target.animate([
-        {opacity:0, transform:'translateY(12px)'},
-        {opacity:1, transform:'translateY(0)'}
-      ], {duration:380, easing:'cubic-bezier(.2,.7,.3,1)'});
+        {opacity:0, transform:start},
+        {opacity:1, transform:'translate(0, 0)'}
+      ], {duration:700, delay, fill:'backwards', easing:'cubic-bezier(.16,1,.3,1)'});
       activeReveals.add(animation);
       animation.finished.catch(() => {}).finally(() => activeReveals.delete(animation));
     }
-  }, {threshold:0.06});
-  revealTargets.forEach(target => reveals.observe(target));
+  }, {threshold:0, rootMargin:'0px 0px -8% 0px'});
+  directions.forEach((_, target) => reveals.observe(target));
   reducedMotion.addEventListener('change', () => {
     if (reducedMotion.matches) activeReveals.forEach(animation => animation.cancel());
   });
-  // Navigation and keyboard focus take precedence over decorative motion.
   document.addEventListener('focusin', () => activeReveals.forEach(animation => animation.cancel()));
   window.addEventListener('hashchange', () => activeReveals.forEach(animation => animation.cancel()));
 }
