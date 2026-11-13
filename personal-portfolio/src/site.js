@@ -88,8 +88,9 @@ const observer = new IntersectionObserver(entries => {
 }, {rootMargin:'-15% 0px -55% 0px'});
 for (const link of navLinks) {const section=document.querySelector(link.hash);if(section) observer.observe(section);}
 
-// Directional entrances inspired by the team's 700ms scroll reveals.
-// No CSS-hidden content: the page remains readable if scripts fail or are disabled.
+// Directional entrances with a gradual, 900ms settle.
+// Keep content opaque throughout: late observer delivery must never hide visible text.
+// Start slightly before viewport entry so ordinary scrolling does not expose the initial offset.
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const activeReveals = new Set();
 const revealGroups = [
@@ -122,19 +123,23 @@ if ('animate' in Element.prototype && 'IntersectionObserver' in window) {
       const distance = innerWidth <= 600 ? 20 : 32;
       const start = direction === 'left' ? `translateX(-${distance}px)` : direction === 'right' ? `translateX(${distance}px)` : `translateY(${distance}px)`;
       const animation = entry.target.animate([
-        {opacity:0, transform:start},
-        {opacity:1, transform:'translate(0, 0)'}
-      ], {duration:700, delay, fill:'backwards', easing:'cubic-bezier(.16,1,.3,1)'});
+        {transform:start},
+        {transform:'translate(0, 0)'}
+      ], {duration:900, delay, fill:'backwards', easing:'cubic-bezier(.22,.68,.2,1)'});
       activeReveals.add(animation);
       animation.finished.catch(() => {}).finally(() => activeReveals.delete(animation));
     }
-  }, {threshold:0, rootMargin:'0px 0px -8% 0px'});
+  }, {threshold:0, rootMargin:'0px 0px 96px 0px'});
   directions.forEach((_, target) => reveals.observe(target));
   reducedMotion.addEventListener('change', () => {
     if (reducedMotion.matches) activeReveals.forEach(animation => animation.cancel());
   });
-  document.addEventListener('focusin', () => activeReveals.forEach(animation => animation.cancel()));
-  window.addEventListener('hashchange', () => activeReveals.forEach(animation => animation.cancel()));
+  // Only settle the element receiving focus; unrelated entrances keep moving.
+  document.addEventListener('focusin', event => {
+    activeReveals.forEach(animation => {
+      if (animation.effect.target.contains(event.target)) animation.finish();
+    });
+  });
 }
 
 // Keep section navigation on the clean page URL, including keyboard activation.
@@ -146,7 +151,6 @@ for (const link of document.querySelectorAll('a[href^="#"]')) {
     event.preventDefault();
     revealProject(link.hash);
     closeMenu();
-    activeReveals.forEach(animation => animation.cancel());
     if (!target.hasAttribute('tabindex')) target.tabIndex = -1;
     target.focus({preventScroll:true});
     target.scrollIntoView({block:'start', behavior:reducedMotion.matches ? 'instant' : 'smooth'});
