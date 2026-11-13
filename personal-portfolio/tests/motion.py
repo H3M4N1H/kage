@@ -1,45 +1,51 @@
 from playwright.sync_api import sync_playwright
 import os
+
 with sync_playwright() as p:
  b=p.chromium.launch(headless=True,executable_path=os.environ.get('CHROMIUM_PATH'))
- page=b.new_page(viewport={'width':1440,'height':900});errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
- page.add_init_script('''window.reveals=[];const original=Element.prototype.animate;Element.prototype.animate=function(frames,options){window.reveals.push({element:this.className||this.id,duration:options.duration,transform:frames[0].transform,opacity:frames[0].opacity});return original.call(this,frames,options)}''')
- page.goto('http://127.0.0.1:4173');page.wait_for_function('window.reveals.length>0')
- assert page.evaluate('reveals.every(r=>r.duration===900 && r.opacity===undefined)')
- page.wait_for_function("document.querySelector('.hero-copy').getAnimations().length===0")
- page.locator('#work .section-heading').evaluate("e=>e.scrollIntoView({block:'center',behavior:'instant'})")
- page.wait_for_function("reveals.some(r=>r.element==='section-heading')")
- page.wait_for_function("document.querySelector('#work .section-heading').getAnimations().length===0")
- page.wait_for_timeout(1100)
- assert page.evaluate("reveals.some(r=>r.transform.startsWith('translateX(-')) && reveals.some(r=>r.transform.startsWith('translateX(32')) && reveals.some(r=>r.transform.startsWith('translateY('))")
- count=page.evaluate('reveals.length')
- page.evaluate('scrollTo({top:0,behavior:"instant"})');page.wait_for_timeout(1100)
- page.locator('#work .section-heading').evaluate("e=>e.scrollIntoView({block:'center',behavior:'instant'})");page.wait_for_timeout(1100)
- assert page.evaluate('reveals.length')==count
- page.emulate_media(reduced_motion='reduce');page.locator('#contact').evaluate("e=>e.scrollIntoView({behavior:'instant'})");page.wait_for_timeout(1100)
- assert page.evaluate('reveals.length')==count
- # Sample rendered frames during a real entrance and focus an unrelated control.
- stable=b.new_page(viewport={'width':1440,'height':900})
- stable.goto('http://127.0.0.1:4173')
- stable.evaluate("document.querySelector('#work').scrollIntoView({behavior:'instant'})")
- stable.wait_for_function("document.querySelector('.project').getAnimations().length>0")
- assert stable.evaluate("""async () => {
-   const card=document.querySelector('.project');
-   const animation=card.getAnimations()[0];
-   document.querySelector('.menu-toggle').dispatchEvent(new FocusEvent('focusin',{bubbles:true}));
-   if(animation.playState==='idle') return false;
-   for(let i=0;i<20;i++){
-     await new Promise(requestAnimationFrame);
-     if(getComputedStyle(card).opacity!=='1') return false;
-     if(document.documentElement.scrollWidth>innerWidth) return false;
-   }
-   return true;
+ page=b.new_page(viewport={'width':1440,'height':900}); errors=[]
+ page.on('pageerror',lambda e:errors.append(str(e)))
+ page.goto('http://127.0.0.1:4173')
+ assert page.locator('html').evaluate("e=>e.classList.contains('motion-ready')")
+ # Hidden before scrolling, not painted and then reset when the observer fires.
+ card=page.locator('.project').first
+ assert card.evaluate("e=>getComputedStyle(e).opacity")=='0'
+ assert page.locator('.hero-actions').evaluate("e=>getComputedStyle(e).animationDelay")=='0.34s'
+ assert page.locator('.featured-panel').evaluate("e=>getComputedStyle(e).transitionDelay")=='0.12s'
+ assert card.evaluate("e=>getComputedStyle(e).transitionDuration")=='0.6s'
+ card.evaluate("e=>e.scrollIntoView({behavior:'instant',block:'center'})")
+ page.wait_for_function("document.querySelector('.project').classList.contains('is-visible')")
+ assert page.evaluate("""async()=>{
+  const card=document.querySelector('.project');let previous=0;
+  for(let i=0;i<65;i++){
+   await new Promise(requestAnimationFrame);
+   const value=Number(getComputedStyle(card).opacity);
+   if(value+0.001<previous || document.documentElement.scrollWidth>innerWidth)return false;
+   previous=value;
+  }
+  return previous===1;
  }""")
- stable.close()
+ page.evaluate("scrollTo({top:0,behavior:'instant'})")
+ card.evaluate("e=>e.scrollIntoView({behavior:'instant',block:'center'})")
+ assert card.evaluate("e=>getComputedStyle(e).opacity")=='1'
+ # Keyboard navigation reveals a pending target without waiting on its fade.
+ pending=page.locator('.profile-list')
+ pending.locator('a').first.focus()
+ assert pending.evaluate("e=>getComputedStyle(e).opacity")=='1'
+ page.emulate_media(reduced_motion='reduce')
+ assert page.locator('[data-reveal]').evaluate_all("es=>es.every(e=>getComputedStyle(e).opacity==='1')")
+ for width,height in [(320,740),(390,844),(768,1024),(1440,900)]:
+  mobile=b.new_page(viewport={'width':width,'height':height},reduced_motion='reduce')
+  mobile.goto('http://127.0.0.1:4173')
+  assert mobile.locator('.hero-actions').evaluate("e=>getComputedStyle(e).animationName")=='none'
+  assert mobile.evaluate('document.documentElement.scrollWidth<=innerWidth')
+  if width<=390:assert mobile.locator('.terminal').bounding_box()['y']>=height+20
+  mobile.close()
+ nojs=b.new_page(java_script_enabled=False);nojs.goto('http://127.0.0.1:4173')
+ assert nojs.locator('[data-reveal]').evaluate_all("es=>es.every(e=>getComputedStyle(e).opacity==='1')")
+ failed=b.new_page();failed.route('**/site.js',lambda route:route.abort());failed.goto('http://127.0.0.1:4173')
+ failed.wait_for_function("!document.documentElement.classList.contains('motion-ready')",timeout=6000)
+ assert failed.locator('.project').first.evaluate("e=>getComputedStyle(e).opacity")=='1'
  assert not errors,errors
- reduced=b.new_page(reduced_motion='reduce',viewport={'width':390,'height':844});reduced.goto('http://127.0.0.1:4173');reduced.locator('portfolio-globe[data-ready=true]').wait_for()
- assert reduced.locator('.hero-copy').evaluate('e=>e.getAnimations().length')==0
- assert reduced.locator('.terminal').bounding_box()['y']>=864
- assert reduced.evaluate('document.documentElement.scrollWidth<=innerWidth')
- print('No opacity resets; directional 900ms one-time reveals, repeat-scroll behavior, reduced-motion preference, and mobile opening-screen layout passed.')
+ print('Reference timings, pre-paint hidden state, monotonic fade, one-time reveals, keyboard focus, mobile layout, reduced motion, no-JS and failed-script fallback passed.')
  b.close()

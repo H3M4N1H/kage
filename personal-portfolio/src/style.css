@@ -106,3 +106,30 @@ main,footer,.header-inner{max-width:var(--page-width);width:100%}
 .github-snapshot dt{font-size:12px;color:#9baaa4}
 .github-snapshot dd{margin:6px 0 0;font-size:28px;color:#b5f36b;font-family:monospace}
 @media(max-width:600px){.project-grid{grid-template-columns:1fr}.github-snapshot{gap:20px}.github-snapshot dl{gap:20px}.github-snapshot dt{font-size:11px}}
+
+/* Motion adapted from HiRes Lossless globals.css: separate translate preserves transforms. */
+:root{--motion-ease:cubic-bezier(.2,.7,.2,1)}
+@keyframes portfolio-rise{from{opacity:0;translate:0 18px}to{opacity:1;translate:0 0}}
+@keyframes portfolio-drop{from{opacity:0;translate:0 -12px}to{opacity:1;translate:0 0}}
+.motion-ready .header-inner{animation:portfolio-drop .6s var(--motion-ease) both}
+.motion-ready .hero-copy>*{animation:portfolio-rise .8s var(--motion-ease) both}
+.motion-ready .hero-copy>.eyebrow{animation-delay:.1s}
+.motion-ready .hero-copy>h1{animation-delay:.1s}
+.motion-ready .hero-copy>.positioning{animation-delay:.22s}
+.motion-ready .hero-copy>.hero-description{animation-delay:.22s}
+.motion-ready .hero-copy>.hero-actions{animation-delay:.34s}
+.motion-ready .hero-copy>.social-icons{animation-delay:.46s}
+.motion-ready [data-reveal]{transition:opacity .7s var(--motion-ease),translate .7s var(--motion-ease);transition-delay:var(--reveal-delay,0ms)}
+.motion-ready [data-reveal="left"],.motion-ready [data-reveal="right"]{transition-duration:.8s}
+.motion-ready [data-reveal="card"]{transition-duration:.6s}
+.motion-ready [data-reveal]:not(.is-visible){opacity:0;translate:0 24px}
+.motion-ready [data-reveal="left"]:not(.is-visible){translate:-28px 0}
+.motion-ready [data-reveal="right"]:not(.is-visible){translate:28px 0}
+.motion-ready [data-reveal="card"]:not(.is-visible){translate:0 18px}
+.motion-ready [data-reveal].is-visible{opacity:1;translate:0 0}
+@media(prefers-reduced-motion:reduce){
+ .motion-ready [data-reveal]{opacity:1!important;translate:none!important;transition:none!important}
+ .motion-ready .header-inner,.motion-ready .hero-copy>*{animation:none!important}
+}
+/* Side entrances stay inside the viewport while their content is offscreen. */
+main{overflow-x:clip}

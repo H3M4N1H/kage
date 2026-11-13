@@ -88,57 +88,32 @@ const observer = new IntersectionObserver(entries => {
 }, {rootMargin:'-15% 0px -55% 0px'});
 for (const link of navLinks) {const section=document.querySelector(link.hash);if(section) observer.observe(section);}
 
-// Directional entrances with a gradual, 900ms settle.
-// Keep content opaque throughout: late observer delivery must never hide visible text.
-// Start slightly before viewport entry so ordinary scrolling does not expose the initial offset.
+// Match HiRes Lossless: one-time CSS reveals, triggered 8% into the viewport.
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-const activeReveals = new Set();
-const revealGroups = [
-  ['.hero-copy', 'left'],
-  ['.terminal', 'right'],
-  ['.about-section', 'up'],
-  ['.skills-panel', 'left'],
-  ['.featured-panel', 'right'],
-  ['.section-heading, #experience > h2, .github-snapshot', 'up'],
-  ['.project', 'up'],
-  ['.event-winnings', 'left'],
-  ['.event-activity', 'right'],
-  ['.practice-snapshot, .experience-grid > article', 'up'],
-  ['#contact > div:first-child', 'left'],
-  ['.profile-list', 'right']
-];
-if ('animate' in Element.prototype && 'IntersectionObserver' in window) {
-  const directions = new Map();
-  for (const [selector, direction] of revealGroups) {
-    document.querySelectorAll(selector).forEach((target, index) => {
-      directions.set(target, {direction, delay:target.matches('.project, .experience-grid > article') ? (index % 2) * 80 : 0});
-    });
-  }
+const revealTargets = [...document.querySelectorAll('[data-reveal]')];
+if ('IntersectionObserver' in window) {
   const reveals = new IntersectionObserver(entries => {
     for (const entry of entries) {
       if (!entry.isIntersecting) continue;
+      entry.target.classList.add('is-visible');
       reveals.unobserve(entry.target);
-      if (reducedMotion.matches || entry.target.contains(document.activeElement)) continue;
-      const {direction, delay} = directions.get(entry.target);
-      const distance = innerWidth <= 600 ? 20 : 32;
-      const start = direction === 'left' ? `translateX(-${distance}px)` : direction === 'right' ? `translateX(${distance}px)` : `translateY(${distance}px)`;
-      const animation = entry.target.animate([
-        {transform:start},
-        {transform:'translate(0, 0)'}
-      ], {duration:900, delay, fill:'backwards', easing:'cubic-bezier(.22,.68,.2,1)'});
-      activeReveals.add(animation);
-      animation.finished.catch(() => {}).finally(() => activeReveals.delete(animation));
     }
-  }, {threshold:0, rootMargin:'0px 0px 96px 0px'});
-  directions.forEach((_, target) => reveals.observe(target));
+  }, {rootMargin:'0px 0px -8% 0px'});
+  revealTargets.forEach(target => reveals.observe(target));
+  clearTimeout(window.motionFallback);
   reducedMotion.addEventListener('change', () => {
-    if (reducedMotion.matches) activeReveals.forEach(animation => animation.cancel());
+    if (!reducedMotion.matches) return;
+    document.documentElement.classList.remove('motion-ready');
+    revealTargets.forEach(target => target.classList.add('is-visible'));
+    reveals.disconnect();
   });
-  // Only settle the element receiving focus; unrelated entrances keep moving.
+  // Keyboard users never have to wait for the focused content to appear.
   document.addEventListener('focusin', event => {
-    activeReveals.forEach(animation => {
-      if (animation.effect.target.contains(event.target)) animation.finish();
-    });
+    const target = event.target.closest('[data-reveal]');
+    if (!target) return;
+    target.classList.add('is-visible');
+    target.getAnimations().forEach(animation => animation.finish());
+    reveals.unobserve(target);
   });
 }
 
