@@ -45,8 +45,9 @@ with sync_playwright() as p:
   canvas.press('Home')
   page.evaluate('document.fonts.ready')
   assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'),width
-  assert page.locator('article.project:visible').count()==9
-  page.locator('.more-projects').click()
+  assert page.locator('article.project:visible').count()==4
+  assert page.locator('.project-repo').count()==4
+  assert all(a.get_attribute('href').startswith('https://github.com/H3M4N1H/') for a in page.locator('.project-repo').all())
   assert page.locator('article.project:visible').count()==project_count
   if width>1000:
    assert page.locator('.social-icons').bounding_box()['y']+page.locator('.social-icons').bounding_box()['height'] < page.locator('.about-section').bounding_box()['y'], 'Hero overlaps About'
@@ -77,6 +78,8 @@ with sync_playwright() as p:
    target=link.get_attribute('href')
    link.click()
    assert page.locator(target).count()==1
+   assert page.evaluate('location.hash') == ''
+   assert page.locator(target).evaluate('e=>e===document.activeElement')
    if width<901:assert not page.locator('#main-nav').is_visible()
   page.goto('http://127.0.0.1:4173')
   page.evaluate('document.fonts.ready')

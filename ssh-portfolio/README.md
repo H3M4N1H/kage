@@ -37,7 +37,7 @@ The transport is based on [Wish](https://github.com/charmbracelet/wish); applica
 
 See [deployment](DEPLOYMENT.md) and [threat model](SECURITY.md). No cloud resources, DNS, firewall rules, or services were changed by the build.
 
-The main menu shows a large bold coral-red `h3m4n1h` ASCII banner on terminals at least 49 columns wide and 23 rows high. Smaller windows use a compact title so navigation remains visible. Section pages prioritize readable content. Plain SSH output includes an uncolored banner.
+The main menu shows a user-supplied bold coral-red `h3m4n1h` block banner when the terminal is wide enough and at least 23 rows high. Smaller windows use a compact title so navigation remains visible. Section pages prioritize readable content. Plain SSH output includes an uncolored banner.
 
 ## Client connection reuse
 
@@ -48,3 +48,5 @@ Equivalent command:
 ```sh
 ssh -tt -o ControlPath=none -o ControlMaster=no -o ControlPersist=no -p 2222 visitor@127.0.0.1
 ```
+
+For the colored local preview, start the server with `./run.sh`, then connect using `./connect.sh`. `PORTFOLIO_COLOR=always` overrides inherited `NO_COLOR` for remote sessions; `PORTFOLIO_COLOR=never` disables styling. `TERM=dumb` and non-interactive output remain plain.

@@ -97,3 +97,12 @@ main,footer,.header-inner{max-width:var(--page-width);width:100%}
   .hero-intro .globe-window{align-self:center}
   .hero-intro .globe-stage{height:clamp(200px,30svh,280px);min-height:0}
 }
+
+/* Four selected repositories and a dated public activity snapshot. */
+.project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.project-repo{margin-top:20px;display:inline-flex;min-height:44px;align-items:center}
+.github-snapshot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;padding:24px 0;margin-bottom:24px;border-block:1px solid var(--line,#26302b)}
+.github-snapshot dl{display:flex;flex-wrap:wrap;gap:24px;margin:0}
+.github-snapshot dt{font-size:12px;color:#9baaa4}
+.github-snapshot dd{margin:6px 0 0;font-size:28px;color:#b5f36b;font-family:monospace}
+@media(max-width:600px){.project-grid{grid-template-columns:1fr}.github-snapshot{gap:20px}.github-snapshot dl{gap:20px}.github-snapshot dt{font-size:11px}}

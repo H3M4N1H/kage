@@ -8,14 +8,13 @@ import (
 	"strings"
 )
 
-// Seven-row ASCII wordmark; only displayed when the menu has room.
-const nameBanner = `#   #  #####  #   #  #   #  #   #    #    #   #
-#   #      #  ## ##  #   #  ##  #   ##    #   #
-#   #      #  # # #  #   #  ##  #    #    #   #
-#####   ####  #   #  #####  # # #    #    #####
-#   #      #  #   #      #  #  ##    #    #   #
-#   #      #  #   #      #  #  ##    #    #   #
-#   #  #####  #   #      #  #   #  #####  #   #`
+// User-supplied block-letter wordmark; shown only when it fits the menu.
+const nameBanner = `██╗  ██╗██████╗ ███╗   ███╗██╗  ██╗███╗   ██╗ ██╗██╗  ██╗
+██║  ██║╚════██╗████╗ ████║██║  ██║████╗  ██║███║██║  ██║
+███████║ █████╔╝██╔████╔██║███████║██╔██╗ ██║╚██║███████║
+██╔══██║ ╚═══██╗██║╚██╔╝██║╚════██║██║╚██╗██║ ██║██╔══██║
+██║  ██║██████╔╝██║ ╚═╝ ██║     ██║██║ ╚████║ ██║██║  ██║
+╚═╝  ╚═╝╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═╝╚═╝  ╚═╝`
 
 type model struct {
 	content                             Content
@@ -90,8 +89,8 @@ func (m model) View() string {
 		title = "h3m4n1h / HEMANTH"
 	}
 	lines := []string{}
-	if m.page < 0 && m.width >= ansi.StringWidth(strings.Split(nameBanner, "\n")[0])+2 && m.height >= 23 {
-		bannerStyle := m.accent.Copy().Foreground(lipgloss.Color("#FF5F56")).Bold(true)
+	if m.page < 0 && m.width >= lipgloss.Width(nameBanner)+2 && m.height >= 23 {
+		bannerStyle := m.accent.Foreground(lipgloss.Color("#FF5F56")).Bold(true)
 		for _, row := range strings.Split(nameBanner, "\n") {
 			lines = append(lines, bannerStyle.Render(row))
 		}

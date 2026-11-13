@@ -6,6 +6,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/charmbracelet/x/ansi"
+	"github.com/muesli/termenv"
 	gossh "golang.org/x/crypto/ssh"
 	"io"
 	"net"
@@ -308,7 +309,7 @@ func TestOutputLimit(t *testing.T) {
 
 func TestBannerResponsiveMenu(t *testing.T) {
 	c, _ := loadContent()
-	for _, width := range []int{24, 40, 49, 60, 80, 160} {
+	for _, width := range []int{24, 40, 49, lipgloss.Width(nameBanner) + 1, lipgloss.Width(nameBanner) + 2, 80, 160} {
 		for _, height := range []int{10, 16, 22, 23, 24, 40} {
 			m := newModel(c, lipgloss.NewStyle())
 			m.width, m.height = width, height
@@ -328,7 +329,7 @@ func TestBannerResponsiveMenu(t *testing.T) {
 					t.Fatalf("selection missing at %dx%d", width, height)
 				}
 				hasBanner := strings.Contains(view, strings.Split(nameBanner, "\n")[0])
-				if hasBanner != (width >= 49 && height >= 23) {
+				if hasBanner != (width >= lipgloss.Width(nameBanner)+2 && height >= 23) {
 					t.Fatalf("incorrect banner at %dx%d", width, height)
 				}
 			}
@@ -340,5 +341,31 @@ func TestBannerResponsiveMenu(t *testing.T) {
 	}
 	if strings.Contains(plainContent(c), "\x1b") || !strings.Contains(plainContent(c), nameBanner) {
 		t.Fatal("plain banner missing or styled")
+	}
+}
+
+func TestRemoteColors(t *testing.T) {
+	for _, tc := range []struct {
+		term, mode string
+		noColor    bool
+		want       termenv.Profile
+	}{
+		{"xterm-kitty", "", false, termenv.ANSI256},
+		{"xterm-kitty", "", true, termenv.Ascii},
+		{"xterm-kitty", "always", true, termenv.ANSI256},
+		{"xterm-256color", "never", false, termenv.Ascii},
+		{"dumb", "always", false, termenv.Ascii},
+	} {
+		if got := terminalColorProfile(tc.term, tc.mode, tc.noColor); got != tc.want {
+			t.Fatalf("profile %v: %v", tc, got)
+		}
+	}
+	renderer := lipgloss.NewRenderer(io.Discard)
+	renderer.SetColorProfile(terminalColorProfile("xterm-kitty", "always", true))
+	c, _ := loadContent()
+	m := newModel(c, renderer.NewStyle().Foreground(lipgloss.Color("#B5F36B")))
+	view := m.View()
+	if !strings.Contains(view, "38;5;") || !strings.Contains(view, "██╗") {
+		t.Fatal("colored block banner missing")
 	}
 }

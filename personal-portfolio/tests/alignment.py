@@ -32,8 +32,9 @@ with sync_playwright() as p:
    if w<=380: assert actions[1].bounding_box()['y']>=actions[0].bounding_box()['y']+48
   names=list(layout)
   for prev,nxt in zip(names,names[1:]):assert layout[prev]['bottom']<=layout[nxt]['top']+1,(w,prev,nxt)
-  assert page.locator('article.project:visible').count()==9
-  page.locator('.more-projects').click()
+  assert page.locator('article.project:visible').count()==4
+  assert page.locator('.project-repo').count()==4
+  assert all(a.get_attribute('href').startswith('https://github.com/H3M4N1H/') for a in page.locator('.project-repo').all())
   for summary in page.locator('.event-history summary').all(): summary.click()
   assert page.locator('.event-history details[open]').count()==2
   clips=page.evaluate('''()=>Array.from(document.querySelectorAll('h1,h2,h3,h4,p,button,li,small')).filter(e=>e.getClientRects().length&&!e.closest('[aria-hidden="true"],.sr-only')).filter(e=>e.clientWidth>0&&e.scrollWidth>e.clientWidth+2).map(e=>({tag:e.tagName,text:e.textContent.slice(0,50),width:e.clientWidth,scroll:e.scrollWidth}))''')

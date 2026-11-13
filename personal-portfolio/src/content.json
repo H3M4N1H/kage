@@ -5,8 +5,8 @@
   "profiles": [
     {
       "name": "GitHub",
-      "handle": "Dreadonyx",
-      "url": "https://github.com/Dreadonyx"
+      "handle": "h3m4n1h",
+      "url": "https://github.com/H3M4N1H"
     },
     {
       "name": "LinkedIn",
@@ -20,7 +20,7 @@
     },
     {
       "name": "CTFtime",
-      "handle": "DreadOnyx",
+      "handle": "h3m4n1h",
       "url": "https://ctftime.org/user/235934"
     }
   ],
@@ -38,22 +38,22 @@
         "Docker"
       ],
       "visual": "modules",
-      "status": "Project"
+      "status": "Project",
+      "url": "https://github.com/H3M4N1H/Aegis"
     },
     {
-      "name": "ThrustGuard",
-      "category": "Systems & tooling",
-      "summary": "Behavioral trust for IoT.",
-      "description": "IoT behavioral trust scoring with policy rules, statistical drift checks, anomaly detection, hash-chained audit logs, and LLM-assisted incident reports.",
+      "name": "SafeKey",
+      "category": "Security & learning",
+      "summary": "Your passwords, kept on-device.",
+      "description": "A local-first password manager with AES-256-GCM vault encryption, PBKDF2 key derivation, per-entry IVs, clipboard timeout, inactivity auto-lock, and password strength feedback. Supports browser, desktop, and Android distribution.",
       "tags": [
-        "Python",
-        "FastAPI",
-        "Isolation Forest",
-        "Ollama",
-        "SQLite"
+        "Web Crypto API",
+        "Tauri",
+        "Local-first"
       ],
-      "visual": "signal",
-      "status": "Project"
+      "visual": "key",
+      "status": "Project",
+      "url": "https://github.com/H3M4N1H/SafeKey"
     },
     {
       "name": "SpecterNet",
@@ -67,320 +67,22 @@
         "Threading"
       ],
       "visual": "connect",
-      "status": "Project"
+      "status": "Project",
+      "url": "https://github.com/H3M4N1H/SpecterNet"
     },
     {
-      "name": "SentinelX",
-      "category": "Security & learning",
-      "summary": "From source code to security findings.",
-      "description": "AST-based Python scanning and secret detection, with AI-assisted attack paths, proof-of-concept payloads, and impact summaries for security research.",
-      "tags": [
-        "Python",
-        "AST analysis",
-        "AI analysis"
-      ],
-      "visual": "modules",
-      "status": "Project"
-    },
-    {
-      "name": "PhantomEye",
-      "category": "Security & learning",
-      "summary": "Recon across identities and infrastructure.",
-      "description": "Concurrent OSINT checks across 100+ platforms, with username, email, IP, domain, and phone modules, DNS and security-header checks, and HTML reports.",
-      "tags": [
-        "OSINT",
-        "Concurrent checks",
-        "HTML reports"
-      ],
-      "visual": "connect",
-      "status": "Project"
-    },
-    {
-      "name": "SafeKey",
-      "category": "Security & learning",
-      "summary": "Your passwords, kept on-device.",
-      "description": "A local-first password manager with AES-256-GCM vault encryption, PBKDF2 key derivation, per-entry IVs, clipboard timeout, inactivity auto-lock, and password strength feedback. Supports browser, desktop, and Android distribution.",
-      "tags": [
-        "Web Crypto API",
-        "Tauri",
-        "Local-first"
-      ],
-      "visual": "key",
-      "status": "Project"
-    },
-    {
-      "name": "CipherX",
-      "category": "Security & learning",
-      "summary": "Decode the next layer.",
-      "description": "Multi-layer cipher and encoding detection with Base64, hex, ROT13, Morse and more. Includes Caesar, XOR and Vigenere workflows, flag scoring, steganography, and hash identification.",
-      "tags": [
-        "Cryptography",
-        "CTFs",
-        "Encoding"
-      ],
-      "visual": "key",
-      "status": "Project"
-    },
-    {
-      "name": "RoadSOS",
-      "category": "Systems & tooling",
-      "summary": "From crash detection to emergency response.",
-      "description": "National Road Safety Hackathon 2026 project using a TFLite sensor model, OpenStreetMap road checks, a two-step cancel flow, emergency calls and SMS, realtime bystander alerts, and first-aid guidance.",
-      "tags": [
-        "TFLite",
-        "Android",
-        "Twilio",
-        "Supabase"
-      ],
-      "visual": "signal",
-      "status": "Project"
-    },
-    {
-      "name": "Cyventura CTF Platform",
+      "name": "ranq",
       "category": "Web & community",
-      "summary": "Weekly challenges, one shared platform.",
-      "description": "A weekly CTF platform with authentication, challenges, flag submissions, leaderboards, events, and admin tools. Includes hashed passwords and flags, rate limiting, and upload validation.",
-      "tags": [
-        "FastAPI",
-        "MongoDB",
-        "React",
-        "Vite"
-      ],
-      "visual": "connect",
-      "status": "Project"
-    },
-    {
-      "name": "CTF-AI",
-      "category": "Security & learning",
-      "summary": "A companion for the learning curve.",
-      "description": "An AI-assisted CTF learning tool designed to help beginners reason through challenge concepts and build problem-solving confidence.",
-      "tags": [
-        "Python",
-        "Gemini",
-        "Docker"
-      ],
-      "visual": "reason",
-      "status": "Project"
-    },
-    {
-      "name": "SpecFit",
-      "category": "Systems & tooling",
-      "summary": "System telemetry, made readable.",
-      "description": "A Flask system health dashboard using psutil to track CPU and memory, classify NORMAL, STRAINED, and OVERLOADED states, identify top memory consumers, and explain conditions with Groq.",
-      "tags": [
-        "Flask",
-        "psutil",
-        "Groq"
-      ],
-      "visual": "signal",
-      "status": "Project"
-    },
-    {
-      "name": "GHOST",
-      "category": "Systems & tooling",
-      "summary": "Local tools. Focused workflows.",
-      "description": "A modular local assistant concept built around distinct workflow modes and configurable model support.",
-      "tags": [
-        "Local tooling",
-        "CLI"
-      ],
-      "visual": "modules",
-      "status": "Concept"
-    },
-    {
-      "name": "Yugma",
-      "category": "Web & community",
-      "summary": "Connecting college communities.",
-      "description": "A platform concept for connecting college clubs and making inter-college coordination easier.",
-      "tags": [
-        "Next.js",
-        "Tailwind CSS"
-      ],
-      "visual": "connect",
-      "status": "Concept"
-    },
-    {
-      "name": "AttendQR",
-      "category": "Web & community",
-      "summary": "A simpler attendance workflow.",
-      "description": "A QR-based attendance project built around a lightweight web application and a SQLite fallback.",
-      "tags": [
-        "Flask",
-        "SQLite",
-        "QR codes"
-      ],
-      "visual": "qr",
-      "status": "Project"
-    },
-    {
-      "name": "nmapx",
-      "category": "Systems & tooling",
-      "summary": "Network scans, live in the browser.",
-      "description": "A web interface for Nmap with WebSocket output streaming, readable scan summaries, scan profiles, and Groq-assisted threat analysis.",
-      "tags": [
-        "Nmap",
-        "WebSockets",
-        "Groq"
-      ],
-      "visual": "connect",
-      "status": "Project"
-    },
-    {
-      "name": "CertFlow",
-      "category": "Web & community",
-      "summary": "Certificates at event scale.",
-      "description": "A Flask certificate generator with participant lists, template previews, layout controls, and batch ZIP exports for college and event workflows. Also known as Certs-Automator.",
-      "tags": [
-        "Flask",
-        "Batch generation",
-        "Templates"
-      ],
-      "visual": "qr",
-      "status": "Project"
-    },
-    {
-      "name": "ChessForge",
-      "category": "Web & community",
-      "summary": "A chessboard you can make your own.",
-      "description": "A custom chess platform with move validation, endgame detection, a board editor, themes, and Chess960 with castling support.",
-      "tags": [
-        "Chess960",
-        "Board editor",
-        "Game rules"
-      ],
-      "visual": "qr",
-      "status": "Project"
-    },
-    {
-      "name": "GhostC2",
-      "category": "Security & learning",
-      "summary": "A modular console for authorized labs.",
-      "description": "Python C2 framework for CTFs and authorized penetration testing, with multi-session management, payload generation, listeners, file transfer, system information, and session cleanup.",
-      "tags": [
-        "Python",
-        "CTF labs",
-        "CLI"
-      ],
-      "visual": "modules",
-      "status": "Project"
-    },
-    {
-      "name": "ScanForge",
-      "category": "Security & learning",
-      "summary": "Scan, inspect, report.",
-      "description": "A modular Python web scanner with link and form crawling, checks for SQL injection, XSS, local file inclusion, open redirects and missing security headers, plus JSON and HTML reports.",
-      "tags": [
-        "Python",
-        "Web security",
-        "Reporting"
-      ],
-      "visual": "connect",
-      "status": "Project"
-    },
-    {
-      "name": "AI CLI",
-      "category": "Systems & tooling",
-      "summary": "One terminal, multiple AI providers.",
-      "description": "A dependency-free Python assistant unifying 10 providers and 100+ models, with interactive chat, piped input, provider and model listings, and model switching mid-chat.",
+      "summary": "Make websites easier to discover.",
+      "description": "An open-source Python CLI for SEO, answer-engine readiness, and AI-crawler audits, with prioritized reports and generated configuration fixes.",
       "tags": [
         "Python",
         "CLI",
-        "AI providers"
+        "SEO / AEO / GEO"
       ],
-      "visual": "modules",
-      "status": "Project"
-    },
-    {
-      "name": "steg-art",
-      "category": "Security & learning",
-      "summary": "An image with a hidden message.",
-      "description": "An image pipeline using Groq prompt enhancement and FLUX.1-schnell through Hugging Face, with LSB message embedding in PNGs and encode/decode APIs.",
-      "tags": [
-        "FLUX",
-        "Groq",
-        "LSB steganography"
-      ],
-      "visual": "key",
-      "status": "Project"
-    },
-    {
-      "name": "snipe",
-      "category": "Systems & tooling",
-      "summary": "Find opportunities worth opening.",
-      "description": "A Telegram bot scanning RSS, DuckDuckGo, and CTFtime every 30 minutes. Uses Groq filtering and SQLite preferences and deduplication for hackathons, internships, CTFs, and other opportunities.",
-      "tags": [
-        "Telegram",
-        "Groq",
-        "SQLite"
-      ],
-      "visual": "modules",
-      "status": "Project"
-    },
-    {
-      "name": "UI Album",
-      "category": "Web & community",
-      "summary": "A library of interface experiments.",
-      "description": "A React and Vite component gallery exploring timelines, dashboards, heroes, forms, docks, grids, and other reusable interface patterns.",
-      "tags": [
-        "React",
-        "Vite",
-        "UI design"
-      ],
-      "visual": "qr",
-      "status": "Project"
-    },
-    {
-      "name": "3D Portfolio Website",
-      "category": "Web & community",
-      "summary": "An interactive showcase in three dimensions.",
-      "description": "A React portfolio with a custom 3D keyboard, particles, elastic cursor, and scroll-driven animation, built with Three.js, React Three Fiber, Spline, GSAP, and Framer Motion.",
-      "tags": [
-        "React",
-        "Three.js",
-        "Spline",
-        "GSAP"
-      ],
-      "visual": "modules",
-      "status": "Project"
-    },
-    {
-      "name": "flappy-bird",
-      "category": "Web & community",
-      "summary": "A browser game in a single file.",
-      "description": "A lightweight HTML and JavaScript Flappy Bird implementation that runs directly in the browser without an install step.",
-      "tags": [
-        "HTML",
-        "JavaScript",
-        "Game"
-      ],
-      "visual": "qr",
-      "status": "Project"
-    },
-    {
-      "name": "snake_game",
-      "category": "Web & community",
-      "summary": "Play your way to the flag.",
-      "description": "A Java Snake game with separate rendering, controller, and model layers. Each apple earns 400 points; reaching 4000 points reveals a CTF flag.",
-      "tags": [
-        "Java",
-        "Game",
-        "CTF"
-      ],
-      "visual": "qr",
-      "status": "Project"
-    },
-    {
-      "name": "Procedural Font Foundry",
-      "category": "Web & community",
-      "summary": "Type, generated from geometry.",
-      "description": "Four original fonts—CypherDiamond, QuantumMono, NovaGrid, and Etherence—generated mathematically in Python, with TTF outputs and a preview and download landing page.",
-      "tags": [
-        "Python",
-        "Typography",
-        "Vector geometry"
-      ],
-      "visual": "qr",
-      "status": "Project"
+      "visual": "connect",
+      "status": "Project",
+      "url": "https://github.com/H3M4N1H/ranq"
     }
   ],
   "focus": [
@@ -527,7 +229,8 @@
       "title": "Co-Founder & CEO",
       "dates": "May 2026–Present",
       "description": "Co-founded an online agency delivering web development, AI automation, SEO/AEO/GEO optimization, and branding. Lead website delivery, visual identity, and search-focused improvements.",
-      "confirmed": true
+      "confirmed": true,
+      "url": "https://nodekraft.tech"
     },
     {
       "name": "Cybercom",
@@ -562,7 +265,8 @@
       "title": "Core Member",
       "dates": "Jan 2026–Present",
       "description": "Contribute to team-based CTF problem-solving, challenge development, knowledge sharing, and team coordination.",
-      "confirmed": true
+      "confirmed": true,
+      "url": "https://hireslossless-team.in"
     },
     {
       "name": "Noctivus 2025",
@@ -949,5 +653,11 @@
       "summary": "771 programs · 343 tutorials · 417 tracks · 11 tests",
       "detail": "Programming practice across Python, Java, C, C++, and SQL."
     }
-  ]
+  ],
+  "github": {
+    "public_repos": 38,
+    "followers": 51,
+    "following": 68,
+    "checkedOn": "2026-11-13"
+  }
 }

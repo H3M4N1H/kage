@@ -46,3 +46,5 @@ Latest layout correction: removed the 1440px content cap. All main section edges
 
 
 Current page spacing: centered 1440px maximum outer container shared by the header, main content, and footer. Desktop inner gutters scale from 32px to 64px; tablet gutters are 24px and phone gutters 16px. This replaces the previous uncapped full-window layout at the user’s request.
+
+Motion: a small number of section groups fade and rise 12px over 380ms, once per page visit. No per-card stagger or repeated scroll animation. Reduced-motion preferences and keyboard navigation cancel decorative motion.

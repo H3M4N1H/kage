@@ -171,15 +171,7 @@ func makeServer(c config, content Content) (*ssh.Server, error) {
 			return
 		}
 		renderer := lipgloss.NewRenderer(sess)
-		profile := termenv.Ascii
-		if strings.Contains(pty.Term, "256color") {
-			profile = termenv.ANSI256
-		} else if strings.Contains(pty.Term, "xterm") || strings.Contains(pty.Term, "screen") || strings.Contains(pty.Term, "vt100") {
-			profile = termenv.ANSI
-		}
-		if os.Getenv("NO_COLOR") != "" {
-			profile = termenv.Ascii
-		}
+		profile := terminalColorProfile(pty.Term, os.Getenv("PORTFOLIO_COLOR"), os.Getenv("NO_COLOR") != "")
 		renderer.SetColorProfile(profile)
 		m := newModel(content, renderer.NewStyle().Foreground(lipgloss.Color("#B5F36B")))
 		m.width = clamp(pty.Window.Width, 1, 160)
@@ -203,4 +195,18 @@ func makeServer(c config, content Content) (*ssh.Server, error) {
 		_, _ = p.Run()
 	}
 	return s, nil
+}
+
+// Remote terminal capabilities are independent of the server's own stdout.
+func terminalColorProfile(term, mode string, noColor bool) termenv.Profile {
+	if term == "dumb" || mode == "never" || (noColor && mode != "always") {
+		return termenv.Ascii
+	}
+	if mode == "always" || strings.Contains(term, "256color") || strings.Contains(term, "kitty") || strings.Contains(term, "wezterm") || strings.Contains(term, "alacritty") {
+		return termenv.ANSI256
+	}
+	if strings.Contains(term, "xterm") || strings.Contains(term, "screen") || strings.Contains(term, "tmux") || strings.Contains(term, "vt100") {
+		return termenv.ANSI
+	}
+	return termenv.Ascii
 }
